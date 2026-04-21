@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -7,6 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Duyurular | AKARA</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Blogger'ı sitemizle bütünleştiren özel ayarlar */
+        .blogger-wrapper {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            border: 1px solid #111; /* Metalik ince çerçeve */
+            background: #050505;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        iframe {
+            width: 100%;
+            height: 800px; /* Duyuruların uzunluğuna göre burayı değiştirebilirsin */
+            border: none;
+            /* Scroll bar'ı koyu yapmak için */
+            color-scheme: dark;
+        }
+
+        .loading-text {
+            color: #333;
+            font-size: 0.8rem;
+            text-align: center;
+            margin-top: 10px;
+            letter-spacing: 1px;
+        }
+    </style>
 </head>
 <body class="ana-tema">
 
@@ -23,28 +50,16 @@
 
     <div class="container">
         <header class="section">
-            <h1 class="main-title" onclick="adminGiris()" style="cursor: pointer;">DUYURULAR</h1>
+            <h1 class="main-title">DUYURULAR</h1>
             <div class="divider"></div>
-            <p class="subtitle">En güncel haberler ve duyurular.</p>
+            <p class="subtitle">Yazar panelinden gelen son güncellemeler.</p>
         </header>
 
-        <div id="adminPanel" class="admin-box" style="display:none;">
-            <h3>Yeni Duyuru Ekle</h3>
-            <input type="text" id="baslikInput" placeholder="Duyuru Başlığı...">
-            <textarea id="icerikInput" placeholder="Duyuru içeriğini buraya yaz..." rows="4"></textarea>
-            <div class="panel-btns">
-                <button class="social-btn" onclick="duyuruEkle()">YAYINLA</button>
-                <button class="social-btn" onclick="panelKapat()" style="background:#1a1a1a;">İPTAL</button>
-            </div>
+        <div class="blogger-wrapper">
+            <iframe src="https://akaraduyuru.blogspot.com" title="AKARA Duyurular"></iframe>
         </div>
-
-        <div id="duyuruListesi" class="announcement-list">
-            <div class="announcement-card">
-                <span class="date">21.04.2026</span>
-                <h3>Sistem Güncellendi</h3>
-                <p>Artık başlığa tıklayıp şifrenle duyuru ekleyebilirsin.</p>
-            </div>
-        </div>
+        
+        <p class="loading-text">Veriler Blogger altyapısı ile anlık güncellenir.</p>
     </div>
 
     <script>
@@ -52,45 +67,16 @@
             document.getElementById("sidebar").classList.toggle('active');
         }
 
-        // ŞİFRE KONTROLÜ
-        function adminGiris() {
-            const sifre = prompt("Yönetici Şifresi:");
-            if (sifre === "akara123") { // Şifren bu, istersen değiştirebilirsin
-                document.getElementById('adminPanel').style.display = 'block';
-            } else {
-                alert("Hatalı şifre!");
+        // Sayfa tıklandığında sidebar'ı kapatma (Mobil kolaylık)
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById('sidebar');
+            const menuIcon = document.querySelector('.menu-icon');
+            if (!sidebar.contains(event.target) && !menuIcon.contains(event.target)) {
+                sidebar.classList.remove('active');
             }
-        }
-
-        function panelKapat() {
-            document.getElementById('adminPanel').style.display = 'none';
-        }
-
-        function duyuruEkle() {
-            const baslik = document.getElementById('baslikInput').value;
-            const icerik = document.getElementById('icerikInput').value;
-            const liste = document.getElementById('duyuruListesi');
-            const tarih = new Date().toLocaleDateString('tr-TR');
-
-            if(!baslik || !icerik) return alert("Boş bırakma!");
-
-            const yeniKart = `
-                <div class="announcement-card">
-                    <span class="date">${tarih}</span>
-                    <h3>${baslik}</h3>
-                    <p>${icerik}</p>
-                </div>`;
-            
-            // En yeni duyuruyu listenin başına (en üste) ekler
-            liste.insertAdjacentHTML('afterbegin', yeniKart);
-            
-            // Temizlik
-            document.getElementById('baslikInput').value = "";
-            document.getElementById('icerikInput').value = "";
-            panelKapat();
-            
-            alert("Duyuru eklendi! Sayfayı kapatmadan önce GitHub'da güncellemeyi unutma.");
-        }
+        });
     </script>
 </body>
 </html>
+
+
