@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İletişim | AKARA</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="sidebar" class="sidebar">
+        <a href="index.html">Ana Menü</a>
+        <a href="kitaplar.html">Kitaplar</a>
+        <a href="duyurular.html">Duyurular</a>
+        <a href="isletim.html" onclick="toggleSidebar()">İletişim</a>
+    </div>
+
+    <div class="menu-icon" onclick="toggleSidebar()">
+        <span></span><span></span><span></span>
+    </div>
+
+    <div class="container">
+        <header class="section">
+            <h1>İLETİŞİM</h1>
+            <p>Soruların veya önerilerin için bana ulaşabilirsin.</p>
+        </header>
+
+        <section class="section contact-wrapper">
+            <div class="contact-info">
+                <p>E-posta: <span class="highlight-email">avanakasalak@gmail.com</span></p>
+            </div>
+
+            <form action="mailto:akara.yazar@email.com" method="post" enctype="text/plain" class="contact-form">
+                <div class="input-group">
+                    <label>Adın veya Takma Adın</label>
+                    <input type="text" name="name" placeholder="Buraya yaz..." required>
+                </div>
+
+                <div class="input-group">
+                    <label>Mesajın</label>
+                    <textarea name="message" rows="5" placeholder="Bana ne söylemek istersin?" required></textarea>
+                </div>
+
+                <button type="submit" class="social-btn">Mesajı Gönder</button>
+            </form>
+        </section>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById("sidebar").classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
