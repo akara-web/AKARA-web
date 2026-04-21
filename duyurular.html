@@ -211,39 +211,7 @@
             document.getElementById("sidebar").classList.toggle('active');
         }
 
-        // BASİT ŞİFRE KONTROLÜ
-        function adminKontrol() {
-            const sifre = prompt("Yönetici şifresini girin:akara123");
-            if (sifre === "akara123") { // Şifreni buradan değiştirebilirsin
-                document.getElementById('adminPanel').style.display = 'flex';
-                alert("Giriş başarılı! Paneli aşağıda görebilirsin.");
-            } else {
-                alert("Hatalı şifre!");
-            }
-        }
-
-        function yayinla() {
-            const baslik = document.getElementById('baslikInput').value;
-            const icerik = document.getElementById('icerikInput').value;
-            const liste = document.getElementById('duyuruListesi');
-            const tarih = new Date().toLocaleDateString('tr-TR');
-
-            if(!baslik || !icerik) return;
-
-            const yeniHtml = `
-            <div class="announcement-card">
-                <span class="date">${tarih}</span>
-                <h3>${baslik}</h3>
-                <p>${icerik}</p>
-            </div>`;
-
-            liste.insertAdjacentHTML('afterbegin', yeniHtml);
-            
-            // GitHub'a yapıştırman gereken kodu ekrana basar
-            console.log("GÜNCEL HTML KODUNUZ:\n" + liste.innerHTML);
-            alert("Duyuru listeye eklendi! Kalıcı olması için tarayıcı konsolundaki (F12) kodu GitHub'a yapıştırmayı unutma.");
-            
-            document.getElementById('adminPanel').style.display = 'none';
+        
         }
     </script>
 </body>
