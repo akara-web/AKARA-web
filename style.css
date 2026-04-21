@@ -140,3 +140,79 @@ h1 {
     background-color: #808080;
     margin-bottom: 8px;
 }
+/* Otomatik Kayma Animasyonu */
+@keyframes kaydir {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+}
+
+.slider {
+    display: inline-flex;
+    gap: 20px;
+    animation: kaydir 20s linear infinite; /* 20 saniyede bir tur döner */
+}
+
+/* Fareyle üzerine gelince durması için (İsteğe bağlı) */
+.slider-container:hover .slider {
+    animation-play-state: paused;
+}
+
+/* İletişim Sayfası Özel Tasarımı */
+.contact-wrapper {
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.contact-info {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.highlight-email {
+    color: #808080;
+    font-weight: bold;
+    border-bottom: 1px solid #333;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.input-group label {
+    font-size: 0.8rem;
+    color: #444;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.contact-form input, 
+.contact-form textarea {
+    background-color: #050505;
+    border: 1px solid #1a1a1a;
+    color: #808080;
+    padding: 12px;
+    font-family: inherit;
+    outline: none;
+    transition: 0.3s;
+}
+
+.contact-form input:focus, 
+.contact-form textarea:focus {
+    border-color: #444;
+    background-color: #0a0a0a;
+}
+
+.contact-form .social-btn {
+    width: 100%;
+    margin-top: 10px;
+    cursor: pointer;
+}
