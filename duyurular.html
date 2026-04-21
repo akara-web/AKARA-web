@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duyurular | AKARA</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="ana-tema">
+
+    <div id="sidebar" class="sidebar">
+        <a href="index.html">Ana Menü</a>
+        <a href="kitaplar.html">Kitaplar</a>
+        <a href="duyurular.html">Duyurular</a>
+        <a href="iletisim.html">İletişim</a>
+    </div>
+
+    <div class="menu-icon" onclick="toggleSidebar()">
+        <span></span><span></span><span></span>
+    </div>
+
+    <div class="container">
+        <header class="section">
+            <h1 class="main-title">DUYURULAR</h1>
+            <button class="social-btn" onclick="panelAc()">+ YENİ DUYURU EKLE</button>
+        </header>
+
+        <div id="duyuruPaneli" class="admin-panel" style="display:none;">
+            <input type="text" id="baslikInput" placeholder="Duyuru Başlığı...">
+            <textarea id="icerikInput" placeholder="Mesajınızı buraya yazın..." rows="4"></textarea>
+            <div class="panel-buttons">
+                <button class="social-btn" onclick="duyuruYayinla()">YAYINLA</button>
+                <button class="social-btn" onclick="panelKapat()" style="background:#222;">İPTAL</button>
+            </div>
+        </div>
+
+        <div id="duyuruListesi" class="announcement-list">
+            <div class="announcement-card">
+                <span class="date">21.04.2026</span>
+                <h3>Hırçın Kayalar Yayında!</h3>
+                <p>Yeni bölümleri okumayı unutmayın.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById("sidebar").classList.toggle('active');
+        }
+
+        function panelAc() {
+            document.getElementById('duyuruPaneli').style.display = 'flex';
+        }
+
+        function panelKapat() {
+            document.getElementById('duyuruPaneli').style.display = 'none';
+        }
+
+        function duyuruYayinla() {
+            const baslik = document.getElementById('baslikInput').value;
+            const icerik = document.getElementById('icerikInput').value;
+            const liste = document.getElementById('duyuruListesi');
+            
+            // Tarihi otomatik al (Gün.Ay.Yıl)
+            const bugun = new Date();
+            const tarih = bugun.toLocaleDateString('tr-TR');
+
+            if(!baslik || !icerik) return alert("Lütfen başlık ve içerik girin!");
+
+            // Yeni duyuruyu en başa ekle (Tarih sırası için)
+            const yeniDuyuru = `
+                <div class="announcement-card">
+                    <span class="date">${tarih}</span>
+                    <h3>${baslik}</h3>
+                    <p>${icerik}</p>
+                </div>`;
+            
+            liste.insertAdjacentHTML('afterbegin', yeniDuyuru);
+            
+            // Paneli temizle ve kapat
+            document.getElementById('baslikInput').value = "";
+            document.getElementById('icerikInput').value = "";
+            panelKapat();
+
+            console.log("Kalıcı yapmak için bu HTML'i kopyalayıp dosyana eklemelisin!");
+        }
+    </script>
+</body>
+</html>
