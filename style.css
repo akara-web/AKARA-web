@@ -1,0 +1,142 @@
+/* 1. GENEL AYARLAR */
+body {
+    background-color: #000000;
+    color: #808080; /* Gri metin rengi */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Yan kaymaları engellemek için */
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* 2. BÖLÜMLER ARASI BOŞLUKLAR */
+.section {
+    margin-bottom: 120px; /* Her ana bölüm arasındaki büyük boşluk */
+    text-align: center;
+}
+
+/* 3. BAŞLIK (AKARA) */
+h1 {
+    font-size: 5rem;
+    letter-spacing: 15px;
+    margin-top: 80px;
+    color: #808080;
+}
+
+/* 4. SOSYAL MEDYA BUTONLARI */
+.social-links {
+    display: flex;
+    justify-content: center; 
+    gap: 25px;               /* Butonlar arasındaki yatay boşluk */
+    margin-top: 20px;
+}
+
+.social-btn {
+    color: #808080;
+    text-decoration: none;
+    border: 1px solid #444;  /* Gri çerçeve */
+    padding: 8px 20px;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    transition: 0.3s;
+    text-transform: uppercase;
+}
+
+.social-btn:hover {
+    background-color: #808080;
+    color: #000;
+}
+
+/* 5. ALINTI KISIMLARI */
+.quote-section p {
+    font-style: italic;
+    font-size: 1.3rem;
+    color: #666; /* Biraz daha koyu gri */
+}
+
+/* 6. KAYAN GÖRSEL ALANI (SLIDER) */
+.slider-container {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 40px 0;
+    /* Mouse ile kaydırmayı kolaylaştırmak için */
+    scrollbar-width: thin;
+    scrollbar-color: #333 #000;
+}
+
+.slider {
+    display: inline-flex;
+    gap: 30px; /* Görseller arasındaki boşluk */
+}
+
+.slide img {
+    width: 700px;
+    height: 400px;
+    object-fit: cover;
+    border: 1px solid #222;
+}
+
+/* 7. HAKKINDA BÖLÜMÜ */
+.about-section h2 {
+    letter-spacing: 5px;
+    margin-bottom: 30px;
+}
+
+.about-section p {
+    line-height: 1.8;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* 8. SIDEBAR (YAN MENÜ) */
+.sidebar {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: -250px; /* Gizli konum */
+    background-color: #111;
+    transition: 0.4s ease;
+    padding-top: 80px;
+    z-index: 1000;
+}
+
+.sidebar.active {
+    left: 0; /* Açık konum */
+}
+
+.sidebar a {
+    padding: 20px 30px;
+    text-decoration: none;
+    font-size: 1rem;
+    color: #808080;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    color: #fff;
+    background-color: #1a1a1a;
+}
+
+/* 9. ÜÇ ÇİZGİ (MENU ICON) */
+.menu-icon {
+    position: fixed;
+    top: 30px;
+    left: 30px;
+    cursor: pointer;
+    z-index: 1100;
+}
+
+.menu-icon span {
+    display: block;
+    width: 35px;
+    height: 2px;
+    background-color: #808080;
+    margin-bottom: 8px;
+}

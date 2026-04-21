@@ -1,0 +1,74 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AKARA</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="sidebar" class="sidebar">
+        <a href="#">Ana Menüye Dön</a>
+        <a href="#">Kitaplar</a>
+        <a href="#">Seriler</a>
+        <a href="#">Duyurular</a>
+        <a href="#">İletişim</a>
+    </div>
+
+    <div class="menu-icon" onclick="toggleSidebar()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <div class="container">
+        <header class="section header-top">
+            <h1>AKARA</h1>
+        </header>
+
+        <section class="section quote-section">
+            <p>"Zamanın ötesinde bir hikaye, kayaların arasında gizli."</p>
+        </section>
+
+        <section class="section social-links">
+    <a href="#" class="social-btn">Instagram</a>
+    <a href="#" class="social-btn">Youtube</a>
+    <a href="#" class="social-btn">TikTok</a>
+</section>
+
+<section class="section slider-container">
+    </section>
+        
+        
+        
+        
+        <section class="section slider-container">
+            <div class="slider">
+                <div class="slide"><img src="https://via.placeholder.com/800x400/333/888?text=Gorsel+1" alt="Görsel 1"></div>
+                <div class="slide"><img src="https://via.placeholder.com/800x400/444/999?text=Gorsel+2" alt="Görsel 2"></div>
+                <div class="slide"><img src="https://via.placeholder.com/800x400/333/888?text=Gorsel+3" alt="Görsel 3"></div>
+            </div>
+        </section>
+
+        <section class="section about-section">
+            <h2>HAKKINDA</h2>
+            <p>"Zihnin bir harita olduğunu bilerek,kendini bu haritanın her yerini keşfetmeye adamış biri."</p>
+        </section>
+
+        <section class="section quote-section">
+            <p>"Her son, yeni bir başlangıcın habercisidir."</p>
+        </section>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById("sidebar").classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
