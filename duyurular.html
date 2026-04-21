@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -22,24 +23,26 @@
 
     <div class="container">
         <header class="section">
-            <h1 class="main-title">DUYURULAR</h1>
-            <button class="social-btn" onclick="panelAc()">+ YENİ DUYURU EKLE</button>
+            <h1 class="main-title" onclick="adminGiris()" style="cursor: pointer;">DUYURULAR</h1>
+            <div class="divider"></div>
+            <p class="subtitle">En güncel haberler ve duyurular.</p>
         </header>
 
-        <div id="duyuruPaneli" class="admin-panel" style="display:none;">
+        <div id="adminPanel" class="admin-box" style="display:none;">
+            <h3>Yeni Duyuru Ekle</h3>
             <input type="text" id="baslikInput" placeholder="Duyuru Başlığı...">
-            <textarea id="icerikInput" placeholder="Mesajınızı buraya yazın..." rows="4"></textarea>
-            <div class="panel-buttons">
-                <button class="social-btn" onclick="duyuruYayinla()">YAYINLA</button>
-                <button class="social-btn" onclick="panelKapat()" style="background:#222;">İPTAL</button>
+            <textarea id="icerikInput" placeholder="Duyuru içeriğini buraya yaz..." rows="4"></textarea>
+            <div class="panel-btns">
+                <button class="social-btn" onclick="duyuruEkle()">YAYINLA</button>
+                <button class="social-btn" onclick="panelKapat()" style="background:#1a1a1a;">İPTAL</button>
             </div>
         </div>
 
         <div id="duyuruListesi" class="announcement-list">
             <div class="announcement-card">
                 <span class="date">21.04.2026</span>
-                <h3>Hırçın Kayalar Yayında!</h3>
-                <p>Yeni bölümleri okumayı unutmayın.</p>
+                <h3>Sistem Güncellendi</h3>
+                <p>Artık başlığa tıklayıp şifrenle duyuru ekleyebilirsin.</p>
             </div>
         </div>
     </div>
@@ -49,210 +52,44 @@
             document.getElementById("sidebar").classList.toggle('active');
         }
 
-        function panelAc() {
-            document.getElementById('duyuruPaneli').style.display = 'flex';
+        // ŞİFRE KONTROLÜ
+        function adminGiris() {
+            const sifre = prompt("Yönetici Şifresi:");
+            if (sifre === "akara123") { // Şifren bu, istersen değiştirebilirsin
+                document.getElementById('adminPanel').style.display = 'block';
+            } else {
+                alert("Hatalı şifre!");
+            }
         }
 
         function panelKapat() {
-            document.getElementById('duyuruPaneli').style.display = 'none';
+            document.getElementById('adminPanel').style.display = 'none';
         }
 
-        function duyuruYayinla() {
+        function duyuruEkle() {
             const baslik = document.getElementById('baslikInput').value;
             const icerik = document.getElementById('icerikInput').value;
             const liste = document.getElementById('duyuruListesi');
-            
-            // Tarihi otomatik al (Gün.Ay.Yıl)
-            const bugun = new Date();
-            const tarih = bugun.toLocaleDateString('tr-TR');
+            const tarih = new Date().toLocaleDateString('tr-TR');
 
-            if(!baslik || !icerik) return alert("Lütfen başlık ve içerik girin!");
+            if(!baslik || !icerik) return alert("Boş bırakma!");
 
-            // Yeni duyuruyu en başa ekle (Tarih sırası için)
-            const yeniDuyuru = `
+            const yeniKart = `
                 <div class="announcement-card">
                     <span class="date">${tarih}</span>
                     <h3>${baslik}</h3>
                     <p>${icerik}</p>
                 </div>`;
             
-            liste.insertAdjacentHTML('afterbegin', yeniDuyuru);
+            // En yeni duyuruyu listenin başına (en üste) ekler
+            liste.insertAdjacentHTML('afterbegin', yeniKart);
             
-            // Paneli temizle ve kapat
+            // Temizlik
             document.getElementById('baslikInput').value = "";
             document.getElementById('icerikInput').value = "";
             panelKapat();
-
-            console.log("Kalıcı yapmak için bu HTML'i kopyalayıp dosyana eklemelisin!");
-        }
-    </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Duyurular | AKARA</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body class="ana-tema">
-
-    <div id="sidebar" class="sidebar">
-        <a href="index.html">Ana Menü</a>
-        <a href="kitaplar.html">Kitaplar</a>
-        <a href="duyurular.html">Duyurular</a>
-        <a href="iletisim.html">İletişim</a>
-    </div>
-
-    <div class="menu-icon" onclick="toggleSidebar()">
-        <span></span><span></span><span></span>
-    </div>
-
-    <div class="container">
-        <header class="section">
-            <h1 class="main-title" onclick="adminKontrol()">DUYURULAR</h1> <p class="subtitle">Gizli panel için başlığa tıkla.</p>
-        </header>
-
-        <div id="adminPanel" class="admin-panel" style="display:none;">
-            <h3>Yönetici Paneli</h3>
-            <input type="text" id="baslikInput" placeholder="Duyuru Başlığı">
-            <textarea id="icerikInput" placeholder="Duyuru İçeriği" rows="4"></textarea>
-            <button class="social-btn" onclick="yayinla()">YAYINLA VE KODU AL</button>
-        </div>
-
-        <div id="duyuruListesi" class="announcement-list">
-            <div class="announcement-card">
-                <span class="date">21.04.2026</span>
-                <h3>Sistem Hazır</h3>
-                <p>Admin panelini açmak için yukarıdaki "DUYURULAR" yazısına tıkla.</p>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        function toggleSidebar() {
-            document.getElementById("sidebar").classList.toggle('active');
-        }
-
-        // BASİT ŞİFRE KONTROLÜ
-        function adminKontrol() {
-            const sifre = prompt("Yönetici şifresini girin:");
-            if (sifre === "akara123") { // Şifreni buradan değiştirebilirsin
-                document.getElementById('adminPanel').style.display = 'flex';
-                alert("Giriş başarılı! Paneli aşağıda görebilirsin.");
-            } else {
-                alert("Hatalı şifre!");
-            }
-        }
-
-        function yayinla() {
-            const baslik = document.getElementById('baslikInput').value;
-            const icerik = document.getElementById('icerikInput').value;
-            const liste = document.getElementById('duyuruListesi');
-            const tarih = new Date().toLocaleDateString('tr-TR');
-
-            if(!baslik || !icerik) return;
-
-            const yeniHtml = `
-            <div class="announcement-card">
-                <span class="date">${tarih}</span>
-                <h3>${baslik}</h3>
-                <p>${icerik}</p>
-            </div>`;
-
-            liste.insertAdjacentHTML('afterbegin', yeniHtml);
             
-            // GitHub'a yapıştırman gereken kodu ekrana basar
-            console.log("GÜNCEL HTML KODUNUZ:\n" + liste.innerHTML);
-            alert("Duyuru listeye eklendi! Kalıcı olması için tarayıcı konsolundaki (F12) kodu GitHub'a yapıştırmayı unutma.");
-            
-            document.getElementById('adminPanel').style.display = 'none';
-        }
-    </script>
-</body>
-</html>
-
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Duyurular | AKARA</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body class="ana-tema">
-
-    <div id="sidebar" class="sidebar">
-        <a href="index.html">Ana Menü</a>
-        <a href="kitaplar.html">Kitaplar</a>
-        <a href="duyurular.html">Duyurular</a>
-        <a href="iletisim.html">İletişim</a>
-    </div>
-
-    <div class="menu-icon" onclick="toggleSidebar()">
-        <span></span><span></span><span></span>
-    </div>
-
-    <div class="container">
-        <header class="section">
-            <h1 class="main-title" onclick="adminKontrol()">DUYURULAR</h1> <p class="subtitle">Gizli panel için başlığa tıkla.</p>
-        </header>
-
-        <div id="adminPanel" class="admin-panel" style="display:none;">
-            <h3>Yönetici Paneli</h3>
-            <input type="text" id="baslikInput" placeholder="Duyuru Başlığı">
-            <textarea id="icerikInput" placeholder="Duyuru İçeriği" rows="4"></textarea>
-            <button class="social-btn" onclick="yayinla()">YAYINLA VE KODU AL</button>
-        </div>
-
-        <div id="duyuruListesi" class="announcement-list">
-            <div class="announcement-card">
-                <span class="date">21.04.2026</span>
-                <h3>Sistem Hazır</h3>
-                <p>Admin panelini açmak için yukarıdaki "DUYURULAR" yazısına tıkla.</p>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        function toggleSidebar() {
-            document.getElementById("sidebar").classList.toggle('active');
-        }
-
-        // BASİT ŞİFRE KONTROLÜ
-        function adminKontrol() {
-            const sifre = prompt("Yönetici şifresini girin:");
-            if (sifre === "akara123") { // Şifreni buradan değiştirebilirsin
-                document.getElementById('adminPanel').style.display = 'flex';
-                alert("Giriş başarılı! Paneli aşağıda görebilirsin.");
-            } else {
-                alert("Hatalı şifre!");
-            }
-        }
-
-        function yayinla() {
-            const baslik = document.getElementById('baslikInput').value;
-            const icerik = document.getElementById('icerikInput').value;
-            const liste = document.getElementById('duyuruListesi');
-            const tarih = new Date().toLocaleDateString('tr-TR');
-
-            if(!baslik || !icerik) return;
-
-            const yeniHtml = `
-            <div class="announcement-card">
-                <span class="date">${tarih}</span>
-                <h3>${baslik}</h3>
-                <p>${icerik}</p>
-            </div>`;
-
-            liste.insertAdjacentHTML('afterbegin', yeniHtml);
-            
-            // GitHub'a yapıştırman gereken kodu ekrana basar
-            console.log("GÜNCEL HTML KODUNUZ:\n" + liste.innerHTML);
-            alert("Duyuru listeye eklendi! Kalıcı olması için tarayıcı konsolundaki (F12) kodu GitHub'a yapıştırmayı unutma.");
-            
-            document.getElementById('adminPanel').style.display = 'none';
+            alert("Duyuru eklendi! Sayfayı kapatmadan önce GitHub'da güncellemeyi unutma.");
         }
     </script>
 </body>
