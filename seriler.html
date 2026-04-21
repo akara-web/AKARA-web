@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seriler | Kütüphane</title>
+    <style>
+        /* Sidebar ve Genel Stil Ayarları */
+        body { background-color: #050505; color: #d1d1d1; font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; }
+        .sidebar { width: 250px; height: 100vh; background-color: #0d0d0d; border-right: 1px solid #222; position: fixed; padding-top: 40px; display: flex; flex-direction: column; align-items: center; }
+        .sidebar a { text-decoration: none; color: #888; padding: 15px 25px; width: 80%; text-align: center; transition: 0.3s; font-weight: bold; margin-bottom: 10px; border-radius: 8px; }
+        .sidebar a:hover { color: #fff; background: #1a1a1a; box-shadow: 0 0 10px rgba(93, 173, 226, 0.5); text-shadow: 0 0 5px #5dade2; }
+        .content { margin-left: 250px; padding: 60px 40px; width: 100%; display: flex; flex-direction: column; align-items: center; }
+        
+        /* Akordeon (Seri) Butonları */
+        .seri-buton { width: 100%; background: #111; border: 1px solid #333; border-radius: 15px; padding: 50px 20px; color: white; font-size: 1.8rem; cursor: pointer; transition: 0.4s; text-transform: uppercase; margin-bottom: 5px; }
+        .seri-buton:hover { border-color: #5dade2; background: #161616; }
+        
+        /* Gizli İçerik Alanı */
+        .seri-icerik { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out; background-color: #0a0a0a; border-radius: 0 0 15px 15px; margin-bottom: 20px; }
+        .kitap-izgara { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; padding: 25px; }
+        
+        /* Kitap Kartları */
+        .kitap-kart { text-decoration: none; color: #5dade2; text-align: center; }
+        .kitap-kart img { width: 100%; border-radius: 5px; margin-bottom: 10px; border: 1px solid #222; }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <a href="index.html">ANA SAYFA</a>
+        <a href="kitaplar.html">KİTAPLAR</a>
+        <a href="seriler.html">SERİLER</a>
+        <a href="iletisim.html">YAZAR</a>
+    </div>
+
+    <div class="content">
+        <h1>KOLEKSİYONLAR 📚</h1>
+        <div class="container" style="max-width: 800px; width: 100%;">
+
+            <button class="seri-buton">Kayalar Serisi 🌑</button>
+            <div class="seri-icerik">
+                <div class="kitap-izgara">
+                    <a href="kitaplar.html" class="kitap-kart">
+                        <img src="HIRÇIN_KAYALAR_KAPAK_URL" alt="Hırçın Kayalar">
+                        <h3>Hırçın Kayalar</h3>
+                    </a>
+                </div>
+            </div>
+
+            <button class="seri-buton">Fırtına Serisi 🌩️</button>
+            <div class="seri-icerik">
+                <div class="kitap-izgara">
+                    <div class="kitap-kart">
+                        <img src="YAKINDA_GÖRSEL_URL" alt="Yakında">
+                        <h3>Çok Yakında...</h3>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        var acc = document.getElementsByClassName("seri-buton");
+        for (var i = 0; i < acc.length; i++) {
+            acc[i].onclick = function() {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                if (panel.style.maxHeight) {
+                    panel.style.maxHeight = null;
+                } else {
+                    panel.style.maxHeight = panel.scrollHeight + "px";
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
