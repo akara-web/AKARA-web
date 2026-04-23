@@ -3,76 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seriler | Kütüphane</title>
+    <title>Seriler | Akara</title>
     <style>
-        /* Sidebar ve Genel Stil Ayarları */
+        /* GENEL AYARLAR */
         body { background-color: #050505; color: #d1d1d1; font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; }
-        .sidebar { width: 250px; height: 100vh; background-color: #0d0d0d; border-right: 1px solid #222; position: fixed; padding-top: 40px; display: flex; flex-direction: column; align-items: center; }
-        .sidebar a { text-decoration: none; color: #888; padding: 15px 25px; width: 80%; text-align: center; transition: 0.3s; font-weight: bold; margin-bottom: 10px; border-radius: 8px; }
-        .sidebar a:hover { color: #fff; background: #1a1a1a; box-shadow: 0 0 10px rgba(93, 173, 226, 0.5); text-shadow: 0 0 5px #5dade2; }
-        .content { margin-left: 250px; padding: 60px 40px; width: 100%; display: flex; flex-direction: column; align-items: center; }
+
+        /* SIDEBAR (MASAÜSTÜ) */
+        .sidebar { 
+            width: 250px; height: 100vh; background-color: #0d0d0d; border-right: 1px solid #222; 
+            position: fixed; display: flex; flex-direction: column; align-items: center; padding-top: 40px; 
+            transition: 0.3s; z-index: 1000;
+        }
+        .sidebar a { 
+            text-decoration: none; color: #888; padding: 15px 25px; width: 80%; text-align: center; 
+            transition: 0.3s; font-weight: bold; margin-bottom: 10px; border-radius: 8px; 
+        }
+        .sidebar a:hover { color: #fff; background: #1a1a1a; box-shadow: 0 0 10px rgba(93,173,226,0.5); }
+
+        /* İÇERİK ALANI */
+        .content { margin-left: 250px; padding: 60px 40px; width: 100%; transition: 0.3s; }
+
+        /* MOBİL MENÜ BUTONU (ÜÇ ÇİZGİ) */
+        .menu-btn {
+            display: none; position: fixed; top: 20px; left: 20px; font-size: 30px;
+            background: none; border: none; color: white; cursor: pointer; z-index: 1100;
+        }
+
+        /* AKORDEON VE KİTAPLAR */
+        .seri-buton { 
+            width: 100%; background: #111; border: 1px solid #333; border-radius: 15px; 
+            padding: 40px 20px; color: white; font-size: 1.5rem; cursor: pointer; transition: 0.4s; 
+            text-transform: uppercase; margin-bottom: 10px;
+        }
+        .seri-buton:hover { border-color: #5dade2; }
         
-        /* Akordeon (Seri) Butonları */
-        .seri-buton { width: 100%; background: #111; border: 1px solid #333; border-radius: 15px; padding: 50px 20px; color: white; font-size: 1.8rem; cursor: pointer; transition: 0.4s; text-transform: uppercase; margin-bottom: 5px; }
-        .seri-buton:hover { border-color: #5dade2; background: #161616; }
+        .seri-icerik { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out; background: #0a0a0a; border-radius: 0 0 15px 15px; }
         
-        /* Gizli İçerik Alanı */
-        .seri-icerik { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out; background-color: #0a0a0a; border-radius: 0 0 15px 15px; margin-bottom: 20px; }
-        .kitap-izgara { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; padding: 25px; }
+        .kitap-izgara { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; padding: 20px; }
         
-        /* Kitap Kartları */
-        .kitap-kart { text-decoration: none; color: #5dade2; text-align: center; }
-        .kitap-kart img { width: 100%; border-radius: 5px; margin-bottom: 10px; border: 1px solid #222; }
+        .kitap-kart { text-decoration: none; color: #5dade2; text-align: center; transition: 0.3s; }
+        .kitap-kart img { width: 100%; border-radius: 8px; border: 1px solid #222; }
+        .kitap-kart:hover { transform: translateY(-5px); }
+
+        /* MOBİL UYUMLULUK (768px Altı) */
+        @media (max-width: 768px) {
+            .menu-btn { display: block; } /* Üç çizgiyi göster */
+            
+            .sidebar {
+                left: -250px; /* Menüyü ekranın dışına gizle */
+                width: 250px;
+            }
+
+            .sidebar.active {
+                left: 0; /* Menüye 'active' sınıfı gelince içeri kaydır */
+            }
+
+            .content { margin-left: 0; padding: 80px 20px; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="sidebar">
-        <a href="index.html">Ana Sayfa</a>
-        <a href="kitaplar.html">Kitaplar</a>
-        <a href="seriler.html">Seriler</a>
-        <a href="iletisim.html">İletişim</a>
-        <a href="duyurular.html">Duyurular</a>
-        
-        
+    <button class="menu-btn" onclick="toggleMenu()">☰</button>
+
+    <div class="sidebar" id="mySidebar">
+        <a href="index.html">ANA SAYFA</a>
+        <a href="kitaplar.html">KİTAPLAR</a>
+        <a href="seriler.html" style="color:#fff; background:#1a1a1a;">SERİLER</a>
+        <a href="iletisim.html">YAZAR</a>
     </div>
 
     <div class="content">
-        <h1>KOLEKSİYONLAR 📚</h1>
-        <div class="container" style="max-width: 800px; width: 100%;">
+        <h1 style="text-align: center; color: #5dade2;">SERİLER</h1>
 
-            <button class="seri-buton">RÜZGARDA KALAN SESLER</button>
-            <div class="seri-icerik">
-                <div class="kitap-izgara">
-                    <a href="kitaplar.html" class="kitap-kart">
-                        <img src="LİMANI_KAYIP_GEMİ_KAPAK_URL" alt="LİMANI KAYIP GEMİ">
-                        <h3>LİMANI KAYIP GEMİ</h3>
-                        
-                </div>
+        <button class="seri-buton">RÜZGARDA KALAN SESLER</button>
+        <div class="seri-icerik">
+            <div class="kitap-izgara">
+                <a href="kitaplar.html" class="kitap-kart">
+                    <img src="LİMANI_KAYIP_GEMİ_KAPAK_URL" alt="LİMANI KAYIP GEMİ">
+                    <h3>LİMANI KAYIP GEMİ</h3>
+                </a>
             </div>
-
-            <button class="seri-buton"> POSSİBLE 🌩️</button>
-            <div class="seri-icerik">
-                <div class="kitap-izgara">
-                    <div class="kitap-kart">
-                        <img src="YAKINDA_GÖRSEL_URL" alt="Yakında">
-                        <h3>Çok Yakında...</h3>
-                    </div>
-                </div>
-            </div>
-
         </div>
+
+        <button class="seri-buton">DİĞER SERİ 🌩️</button>
+        <div class="seri-icerik">
+            <div class="kitap-izgara">
+                <p style="padding: 20px;">Bu seride henüz kitap yok.</p>
+            </div>
+        </div>
+
     </div>
 
     <script>
+        /* 1. SIDEBAR'I AÇIP KAPATAN FONKSİYON (MOBİL İÇİN) */
+        function toggleMenu() {
+            var sidebar = document.getElementById("mySidebar");
+            sidebar.classList.toggle("active");
+        }
+
+        /* 2. AKORDEONU (SERİLERİ) ÇALIŞTIRAN FONKSİYON */
         var acc = document.getElementsByClassName("seri-buton");
         for (var i = 0; i < acc.length; i++) {
             acc[i].onclick = function() {
-                this.classList.toggle("active");
                 var panel = this.nextElementSibling;
                 if (panel.style.maxHeight) {
                     panel.style.maxHeight = null;
                 } else {
+                    // Diğer açık olanları kapat (Opsiyonel)
+                    // for (var j = 0; j < acc.length; j++) { acc[j].nextElementSibling.style.maxHeight = null; }
                     panel.style.maxHeight = panel.scrollHeight + "px";
                 }
             }
